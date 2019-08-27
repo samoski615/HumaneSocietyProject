@@ -80,7 +80,7 @@ namespace HumaneSociety
             {
                 clientFromDb = db.Clients.Where(c => c.ClientId == clientWithUpdates.ClientId).Single();
             }
-            catch(InvalidOperationException e)
+            catch(InvalidOperationException e)  // TODO: fix unused variable?
             {
                 Console.WriteLine("No clients have a ClientId that matches the Client passed in.");
                 Console.WriteLine("No update have been made.");
@@ -193,10 +193,22 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            var animalName = from name in updates select   
+
+            var animalSearchedByTraits =
+                    from Animal in updates
+                    select Animal;
+            foreach (var item in updates)
+            {
+
+            }
+           
+            //var animalName = from x in updates select x.Key;
+
+
+            throw new NotImplementedException();
 
         }
-         
+
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
