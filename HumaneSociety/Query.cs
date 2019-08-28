@@ -161,9 +161,7 @@ namespace HumaneSociety
             return employeeWithUserName == null;
         }
 
-
         //// TODO Items: ////
-
 
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
