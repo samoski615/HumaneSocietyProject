@@ -240,6 +240,9 @@ namespace HumaneSociety
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
         {
+
+            //use switch case for updating table
+
             throw new NotImplementedException();
         }
 
@@ -251,23 +254,35 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
+ 
             throw new NotImplementedException();
+
+            //switch case
+            //lambda expression
+            foreach (var animalTraits in updates)
+            {
+
+                Console.WriteLine(animalTraits.Value);
+            }
+            
         }
 
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            throw new NotImplementedException();
+            var categoryId = db.Categories.Where(c => c.Name == categoryName).Select(c => c.CategoryId).Single();
+            return categoryId;
         }
 
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            var room = db.Rooms.Where(x => x.)
         }
 
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+            var dietPlanId = db.DietPlans.Where(d => d.Name == dietPlanName).Select(d => d.DietPlanId).Single();
+            return dietPlanId;
         }
 
         // TODO: Adoption CRUD Operations
