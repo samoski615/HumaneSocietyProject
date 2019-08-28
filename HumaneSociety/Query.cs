@@ -169,23 +169,18 @@ namespace HumaneSociety
             switch (crudOperation)
             {
                 case "create":
-<<<<<<< HEAD
+
                     //var employeeinfo = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
-=======
->>>>>>> db326ae574eeecdf62ecb034acd23e8dccac946c
+
                     db.Employees.InsertOnSubmit(employee);
                     db.SubmitChanges();
                     break;
                 case "read":
-<<<<<<< HEAD
                     var employeeToFind = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
                     employeeToFind.FirstName = employee.FirstName;
                     employeeToFind.LastName = employee.LastName;
                     employeeToFind.Email = employee.Email;
-
-=======
-                    db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single();                   
->>>>>>> db326ae574eeecdf62ecb034acd23e8dccac946c
+                    db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single(); 
                     break;
                 case "update":
                     var employeeInDb = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
@@ -193,14 +188,8 @@ namespace HumaneSociety
                     employeeInDb.LastName = employee.LastName;
                     employeeInDb.EmployeeNumber = employee.EmployeeNumber;
                     employeeInDb.Email = employee.Email;
-<<<<<<< HEAD
-
-                     break;
-
-                    
-=======
                     break;
->>>>>>> db326ae574eeecdf62ecb034acd23e8dccac946c
+
                 case "delete":
                     db.Employees.DeleteOnSubmit(employee);
                     db.SubmitChanges();
@@ -223,26 +212,27 @@ namespace HumaneSociety
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-
-            throw new NotImplementedException();
+            var animal = db.Animals.SingleOrDefault(a => a.AnimalId == id);
+            return animal;
+            
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
         {
+            Animal animal = db.Animals.Where(a => a.AnimalId == animalId).SingleOrDefault();
 
-            //use switch case for updating table
-
-            throw new NotImplementedException();
         }
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         // TODO: Animal Multi-Trait Search
@@ -301,14 +291,14 @@ namespace HumaneSociety
         }
 
         // TODO: Shots Stuff
-        internal static IQueryable<AnimalShot> GetShots(Animal animal)
+        internal static IQueryable<AnimalShot>GetShots(Animal animal)
         {
-            db.Animals
+           throw new NotImplementedException(); //db.Animals
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            throw new NotImplementedException();
+            
         }
 
     }

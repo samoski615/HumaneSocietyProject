@@ -12,15 +12,25 @@ namespace HumaneSociety
         {
 
 
-<<<<<<< HEAD
-             Query.RunEmployeeQueries(new Employee(), "create");
-            //Admin.RunUserMenus()
-=======
 
-            Query.RunEmployeeQueries(new Employee(), "create");
->>>>>>> db326ae574eeecdf62ecb034acd23e8dccac946c
+            //Query.RunEmployeeQueries(new Employee(), "create");
 
-            //PointOfEntry.Run();
+
+
+            //var a = new Animal();
+            //a.AnimalId = 53;
+            //a.Name = "jhbub";
+            //Query.AddAnimal(a);
+
+
+            //Dictionary<int, string> d = new Dictionary<int, string>();
+            //d[1] = "Dog";
+            //d[2] = "New Name";
+            //Query.UpdateAnimal(4, d);
+            ////Admin.RunUserMenus()
+
+
+            ////PointOfEntry.Run();
         }
     }
 }
