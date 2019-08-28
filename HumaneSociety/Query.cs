@@ -168,9 +168,7 @@ namespace HumaneSociety
         
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            //Console.WriteLine("Please Choose to 1. create 2. read 3. update 4. delete .");
-            //string input = Console.ReadLine();
-             //Use this switch case for my project
+
             switch (crudOperation)
             {
                 case "create":
@@ -180,15 +178,19 @@ namespace HumaneSociety
 
                 case "read":
                     employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-                    Query.RunEmployeeQueries(employee, "read"); //pull info from the data base 
+                    Query.RunEmployeeQueries(employee, "read"); 
                     break;
-                case "update"://  this is not updating on the data base 
 
-                    //employeeInDb = employee.FirstName
-                    //employee.LastName = UserInterface.GetStringData("last name", "the employee's");
-                    //employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-                    //employee.Email = UserInterface.GetStringData("email", "the employee's");
-                    //Query.RunEmployeeQueries(employee, "update"); // need to complete add 
+
+                case "update":
+                    
+                    var employeeInDb = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
+                    employeeInDb.FirstName = employee.FirstName;
+                    employeeInDb.LastName = employee.LastName;
+                    employeeInDb.EmployeeNumber = employee.EmployeeNumber;
+                    employeeInDb.Email = employee.Email;
+
+
                     break;
                 case "delete":
                     Console.Clear();
@@ -197,28 +199,12 @@ namespace HumaneSociety
                     Console.ReadLine();
                     break;
                 default:
-                    DisplayUserOptions("Input not recognized please try agian");// working 
+                    DisplayUserOptions("Input not recognized please try agian"); 
                     
                      RunEmployeeQueries(employee, crudOperation);
                     break;
             }
-
-
-
-
-
-            
-
-
-
-
-
-
-            ////Employee employeeFirstname = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-            ////Employee employeeLastname = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-            ////Employee employeeEmail = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-
-
+           
         }
 
         private static void DisplayUserOptions(string v)
@@ -277,7 +263,8 @@ namespace HumaneSociety
 
         internal static Room GetRoom(int animalId)
         {
-            var room = db.Rooms.Where(x => x.)
+            var room = db.Rooms.Where(x => x.AnimalId == animalId).Select(x => x).Single();
+            return room;
         }
 
         internal static int GetDietPlanId(string dietPlanName)
