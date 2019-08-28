@@ -21,7 +21,7 @@ namespace HumaneSociety
         }
         public static string GetUserInput()
         {
-            string input = Console.ReadLine(); //Use this switch case for my project
+            string input = Console.ReadLine();
             switch (input.ToLower())
             {
                 case "reset":

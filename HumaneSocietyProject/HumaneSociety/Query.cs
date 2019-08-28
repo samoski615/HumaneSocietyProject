@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 namespace HumaneSociety
 {
     public static class Query
-    {
+    {        
         static HumaneSocietyDataContext db;
-
 
         static Query()
         {
@@ -18,11 +17,11 @@ namespace HumaneSociety
 
         internal static List<USState> GetStates()
         {
-            List<USState> allStates = db.USStates.ToList();
+            List<USState> allStates = db.USStates.ToList();       
 
             return allStates;
         }
-
+            
         internal static Client GetClient(string userName, string password)
         {
             Client client = db.Clients.Where(c => c.UserName == userName && c.Password == password).Single();
@@ -56,7 +55,7 @@ namespace HumaneSociety
                 newAddress.AddressLine1 = streetAddress;
                 newAddress.City = null;
                 newAddress.USStateId = stateId;
-                newAddress.Zipcode = zipCode;
+                newAddress.Zipcode = zipCode;                
 
                 db.Addresses.InsertOnSubmit(newAddress);
                 db.SubmitChanges();
@@ -81,13 +80,13 @@ namespace HumaneSociety
             {
                 clientFromDb = db.Clients.Where(c => c.ClientId == clientWithUpdates.ClientId).Single();
             }
-            catch (InvalidOperationException e)
+            catch(InvalidOperationException e)  // TODO: fix unused variable?
             {
                 Console.WriteLine("No clients have a ClientId that matches the Client passed in.");
                 Console.WriteLine("No update have been made.");
                 return;
             }
-
+            
             // update clientFromDb information with the values on clientWithUpdates (aside from address)
             clientFromDb.FirstName = clientWithUpdates.FirstName;
             clientFromDb.LastName = clientWithUpdates.LastName;
@@ -102,13 +101,13 @@ namespace HumaneSociety
             Address updatedAddress = db.Addresses.Where(a => a.AddressLine1 == clientAddress.AddressLine1 && a.USStateId == clientAddress.USStateId && a.Zipcode == clientAddress.Zipcode).FirstOrDefault();
 
             // if the address isn't found in the Db, create and insert it
-            if (updatedAddress == null)
+            if(updatedAddress == null)
             {
                 Address newAddress = new Address();
                 newAddress.AddressLine1 = clientAddress.AddressLine1;
                 newAddress.City = null;
                 newAddress.USStateId = clientAddress.USStateId;
-                newAddress.Zipcode = clientAddress.Zipcode;
+                newAddress.Zipcode = clientAddress.Zipcode;                
 
                 db.Addresses.InsertOnSubmit(newAddress);
                 db.SubmitChanges();
@@ -118,11 +117,11 @@ namespace HumaneSociety
 
             // attach AddressId to clientFromDb.AddressId
             clientFromDb.AddressId = updatedAddress.AddressId;
-
+            
             // submit changes
             db.SubmitChanges();
         }
-
+        
         internal static void AddUsernameAndPassword(Employee employee)
         {
             Employee employeeFromDb = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
@@ -163,68 +162,12 @@ namespace HumaneSociety
 
 
         //// TODO Items: ////
-
-        // TODO: Allow any of the CRUD operations to occur here
         
+        // TODO: Allow any of the CRUD operations to occur here
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            Console.WriteLine("Please Choose to 1. create 2. read 3. update 4. delete .");
-            string input = Console.ReadLine();
-             //Use this switch case for my project
-            switch (input.ToLower())
-            {
-                case "create":
-                    Employee employeeID = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-                    employeeID.FirstName = employee.FirstName;
-                    break;
-
-                case "read":
-                    employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-                    Query.RunEmployeeQueries(employee, "read"); //pull info from the data base 
-                    break;
-                case "update"://  this is not updating on the data base 
-                    employee.FirstName = UserInterface.GetStringData("first name", "the employee's");
-                    employee.LastName = UserInterface.GetStringData("last name", "the employee's");
-                    employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-                    employee.Email = UserInterface.GetStringData("email", "the employee's");
-                    Query.RunEmployeeQueries(employee, "update"); // need to complete add 
-                    break;
-                case "delete":
-                    Console.Clear();
-                    Query.RunEmployeeQueries(employee, "delete");
-                    UserInterface.DisplayUserOptions("Employee successfully removed");
-                    Console.ReadLine();
-                    break;
-                default:
-                    DisplayUserOptions("Input not recognized please try agian");// working 
-                    
-                     RunEmployeeQueries(employee, crudOperation);
-                    break;
-            }
-
-
-
-
-
-            
-
-
-
-
-
-
-            ////Employee employeeFirstname = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-            ////Employee employeeLastname = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-            ////Employee employeeEmail = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-
 
         }
-
-        private static void DisplayUserOptions(string v)
-        {
-            Console.WriteLine("Input not recognized please try agian");
-        }
-
 
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
@@ -234,12 +177,11 @@ namespace HumaneSociety
 
         internal static Animal GetAnimalByID(int id)
         {
-            
             throw new NotImplementedException();
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
-        {
+        {            
             throw new NotImplementedException();
         }
 
@@ -247,11 +189,24 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
-
+        
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
+
+            var animalSearchedByTraits =
+                    from Animal in updates
+                    select Animal;
+            foreach (var item in updates)
+            {
+
+            }
+           
+            //var animalName = from x in updates select x.Key;
+
+
             throw new NotImplementedException();
+
         }
 
         // TODO: Misc Animal Things
@@ -259,12 +214,12 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
-
+        
         internal static Room GetRoom(int animalId)
         {
             throw new NotImplementedException();
         }
-
+        
         internal static int GetDietPlanId(string dietPlanName)
         {
             throw new NotImplementedException();
@@ -301,6 +256,5 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
-
     }
 }
