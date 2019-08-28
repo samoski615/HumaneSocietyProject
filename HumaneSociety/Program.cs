@@ -13,7 +13,7 @@ namespace HumaneSociety
 
             //Query.Run();
 
-            // Query.RunEmployeeQueries(new Employee(), "Create");
+             Query.RunEmployeeQueries(new Employee(), "create");
             //Admin.RunUserMenus()
 
             //PointOfEntry.Run();

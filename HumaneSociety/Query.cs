@@ -172,13 +172,17 @@ namespace HumaneSociety
             switch (crudOperation)
             {
                 case "create":
-                    Employee employeeID = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
-                    employeeID.FirstName = employee.FirstName;
+                    //var employeeinfo = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
+                    db.Employees.InsertOnSubmit(employee);
+                    db.SubmitChanges();
                     break;
 
                 case "read":
-                    employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-                    Query.RunEmployeeQueries(employee, "read"); 
+                    var employeeToFind = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
+                    employeeToFind.FirstName = employee.FirstName;
+                    employeeToFind.LastName = employee.LastName;
+                    employeeToFind.Email = employee.Email;
+
                     break;
 
 
@@ -190,8 +194,9 @@ namespace HumaneSociety
                     employeeInDb.EmployeeNumber = employee.EmployeeNumber;
                     employeeInDb.Email = employee.Email;
 
+                     break;
 
-                    break;
+                    
                 case "delete":
                     Console.Clear();
                     Query.RunEmployeeQueries(employee, "delete");
