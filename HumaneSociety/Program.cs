@@ -11,10 +11,9 @@ namespace HumaneSociety
         static void Main(string[] args)
         {
 
-            //Query.Run();
 
-            // Query.RunEmployeeQueries(new Employee(), "Create");
-            //Admin.RunUserMenus()
+
+            Query.RunEmployeeQueries(new Employee(), "create");
 
             //PointOfEntry.Run();
         }
