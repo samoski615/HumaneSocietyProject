@@ -161,55 +161,57 @@ namespace HumaneSociety
             return employeeWithUserName == null;
         }
 
-
         //// TODO Items: ////
 
-        // TODO: Allow any of the CRUD operations to occur here
-        
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-
+            //create separate methods for each crudOperation 
             switch (crudOperation)
             {
                 case "create":
+<<<<<<< HEAD
                     //var employeeinfo = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
+=======
+>>>>>>> db326ae574eeecdf62ecb034acd23e8dccac946c
                     db.Employees.InsertOnSubmit(employee);
                     db.SubmitChanges();
                     break;
-
                 case "read":
+<<<<<<< HEAD
                     var employeeToFind = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
                     employeeToFind.FirstName = employee.FirstName;
                     employeeToFind.LastName = employee.LastName;
                     employeeToFind.Email = employee.Email;
 
+=======
+                    db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single();                   
+>>>>>>> db326ae574eeecdf62ecb034acd23e8dccac946c
                     break;
-
-
                 case "update":
-                    
                     var employeeInDb = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
                     employeeInDb.FirstName = employee.FirstName;
                     employeeInDb.LastName = employee.LastName;
                     employeeInDb.EmployeeNumber = employee.EmployeeNumber;
                     employeeInDb.Email = employee.Email;
+<<<<<<< HEAD
 
                      break;
 
                     
+=======
+                    break;
+>>>>>>> db326ae574eeecdf62ecb034acd23e8dccac946c
                 case "delete":
-                    Console.Clear();
-                    Query.RunEmployeeQueries(employee, "delete");
-                    UserInterface.DisplayUserOptions("Employee successfully removed");
-                    Console.ReadLine();
+                    db.Employees.DeleteOnSubmit(employee);
+                    db.SubmitChanges();
                     break;
                 default:
-                    DisplayUserOptions("Input not recognized please try agian"); 
-                    
-                     RunEmployeeQueries(employee, crudOperation);
+                    DisplayUserOptions("Input not recognized please try again");
+
+                    RunEmployeeQueries(employee, crudOperation);
                     break;
             }
-           
+
         }
 
         private static void DisplayUserOptions(string v)
@@ -226,7 +228,7 @@ namespace HumaneSociety
 
         internal static Animal GetAnimalByID(int id)
         {
-            
+
             throw new NotImplementedException();
         }
 
@@ -246,7 +248,7 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
- 
+
             throw new NotImplementedException();
 
             //switch case
@@ -256,10 +258,9 @@ namespace HumaneSociety
 
                 Console.WriteLine(animalTraits.Value);
             }
-            
+
         }
 
-        // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
             var categoryId = db.Categories.Where(c => c.Name == categoryName).Select(c => c.CategoryId).Single();
@@ -281,7 +282,7 @@ namespace HumaneSociety
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            throw new NotImplementedException();
+
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
@@ -302,7 +303,7 @@ namespace HumaneSociety
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals
         }
 
         internal static void UpdateShot(string shotName, Animal animal)

@@ -40,7 +40,7 @@ namespace HumaneSociety
         public static string GetStringData(string parameter, string target)
         {
             string data;
-            DisplayUserOptions($"What is {target} {parameter}?");
+            DisplayUserOptions($"What is {target} {parameter}?"); 
             data = GetUserInput();
             return data;
         }
