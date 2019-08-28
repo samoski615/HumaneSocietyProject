@@ -168,10 +168,10 @@ namespace HumaneSociety
         
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            Console.WriteLine("Please Choose to 1. create 2. read 3. update 4. delete .");
-            string input = Console.ReadLine();
+            //Console.WriteLine("Please Choose to 1. create 2. read 3. update 4. delete .");
+            //string input = Console.ReadLine();
              //Use this switch case for my project
-            switch (input.ToLower())
+            switch (crudOperation)
             {
                 case "create":
                     Employee employeeID = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
@@ -183,11 +183,12 @@ namespace HumaneSociety
                     Query.RunEmployeeQueries(employee, "read"); //pull info from the data base 
                     break;
                 case "update"://  this is not updating on the data base 
-                    employee.FirstName = UserInterface.GetStringData("first name", "the employee's");
-                    employee.LastName = UserInterface.GetStringData("last name", "the employee's");
-                    employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-                    employee.Email = UserInterface.GetStringData("email", "the employee's");
-                    Query.RunEmployeeQueries(employee, "update"); // need to complete add 
+
+                    //employeeInDb = employee.FirstName
+                    //employee.LastName = UserInterface.GetStringData("last name", "the employee's");
+                    //employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
+                    //employee.Email = UserInterface.GetStringData("email", "the employee's");
+                    //Query.RunEmployeeQueries(employee, "update"); // need to complete add 
                     break;
                 case "delete":
                     Console.Clear();
