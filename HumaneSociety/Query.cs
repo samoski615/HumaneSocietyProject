@@ -161,8 +161,6 @@ namespace HumaneSociety
             return employeeWithUserName == null;
         }
 
-        //// TODO Items: ////
-
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
             //create separate methods for each crudOperation 
@@ -173,7 +171,11 @@ namespace HumaneSociety
                     db.SubmitChanges();
                     break;
                 case "read":
-                    db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single();                   
+                    var employeeToFind = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
+                    employeeToFind.FirstName = employee.FirstName;
+                    employeeToFind.LastName = employee.LastName;
+                    employeeToFind.Email = employee.Email;
+                    db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single(); 
                     break;
                 case "update":
                     var employeeInDb = db.Employees.Where(e => e.Email == employee.Email && e.EmployeeNumber == employee.EmployeeNumber).Single();
@@ -182,6 +184,7 @@ namespace HumaneSociety
                     employeeInDb.EmployeeNumber = employee.EmployeeNumber;
                     employeeInDb.Email = employee.Email;
                     break;
+
                 case "delete":
                     db.Employees.DeleteOnSubmit(employee);
                     db.SubmitChanges();
@@ -200,8 +203,6 @@ namespace HumaneSociety
             Console.WriteLine("Input not recognized please try agian");
         }
 
-
-        // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
@@ -210,21 +211,19 @@ namespace HumaneSociety
 
         internal static Animal GetAnimalByID(int id)
         {
-
-            throw new NotImplementedException();
+            var animal = db.Animals.SingleOrDefault(a => a.AnimalId == id);
+            return animal;
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
         {
-
-            
-
-            throw new NotImplementedException();
+            Animal animal = db.Animals.Where(a => a.AnimalId == animalId).SingleOrDefault();           
         }
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         // TODO: Animal Multi-Trait Search
@@ -237,7 +236,6 @@ namespace HumaneSociety
             //lambda expression
             foreach (var animalTraits in updates)
             {
-
                 Console.WriteLine(animalTraits.Value);
             }
 
@@ -283,18 +281,15 @@ namespace HumaneSociety
         }
 
         // TODO: Shots Stuff
-        internal static IQueryable<AnimalShot> GetShots(Animal animal)
+        internal static IQueryable<AnimalShot>GetShots(Animal animal)
         {
             throw new NotImplementedException();
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            //var typeOfVaccination = db.Shots.Where(s => s.ShotId == Animal.AnimalId);
-
-            
+            //var typeOfVaccination = db.Shots.Where(s => s.ShotId == Animal.AnimalId);            
         }
        
-
     }
 }
