@@ -200,7 +200,7 @@ namespace HumaneSociety
 
         private static void DisplayUserOptions(string v)
         {
-            Console.WriteLine("Input not recognized please try agian");
+            Console.WriteLine("Input not recognized please try again");
         }
 
         internal static void AddAnimal(Animal animal)
@@ -217,7 +217,8 @@ namespace HumaneSociety
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
         {
-            Animal animal = db.Animals.Where(a => a.AnimalId == animalId).SingleOrDefault();           
+            Animal animal = db.Animals.Where(a => a.AnimalId == animalId).SingleOrDefault();
+            //not sure this is correct G.... where does the dictionary get used?
         }
 
         internal static void RemoveAnimal(Animal animal)
@@ -229,16 +230,12 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-
-            throw new NotImplementedException();
-
-            //switch case
-            //lambda expression
+            //lambda expressions
             foreach (var animalTraits in updates)
             {
                 Console.WriteLine(animalTraits.Value);
             }
-
+            return 
         }
 
         internal static int GetCategoryId(string categoryName)
@@ -262,22 +259,28 @@ namespace HumaneSociety
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            //match an animal and client from db together 
+            db.Animals.InsertOnSubmit(animal);
+            db.Clients.InsertOnSubmit(client);
+            db.SubmitChanges();
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            //get status of pending adoptions (adopted/pending approval)
+            //get the list of pending adoptions (pending approval)
+            var pendingAdoptions = db.Adoptions.Where(x => x.AnimalId = x.AnimalId).Select(x => x.ApprovalStatus).Single();
+           
+            return pendingAdoptions;
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            //updates adoption status (from pending to adopted)
+            //updating the status of pending adoptions(adopted/not adopted)
+            var updatedAdoption = db.Adoptions.Where(a => a.ClientId == a.ClientId).Where(a => a.ApprovalStatus == "true");
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            //remove a previously approved adoption
+            //what do you mean by "remove adoption"?         
         }
 
         // TODO: Shots Stuff
@@ -288,8 +291,10 @@ namespace HumaneSociety
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
+            
+
             //var typeOfVaccination = db.Shots.Where(s => s.ShotId == Animal.AnimalId);            
         }
-       
+
     }
 }
