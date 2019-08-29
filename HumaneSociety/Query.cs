@@ -204,7 +204,8 @@ namespace HumaneSociety
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
@@ -216,7 +217,7 @@ namespace HumaneSociety
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
         {
 
-            //use switch case for updating table
+            
 
             throw new NotImplementedException();
         }
@@ -263,34 +264,37 @@ namespace HumaneSociety
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-
+            //match an animal and client from db together 
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            //get status of pending adoptions (adopted/pending approval)
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            throw new NotImplementedException();
+            //updates adoption status (from pending to adopted)
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            throw new NotImplementedException();
+            //remove a previously approved adoption
         }
 
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            db.Animals
+            throw new NotImplementedException();
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            throw new NotImplementedException();
+            //var typeOfVaccination = db.Shots.Where(s => s.ShotId == Animal.AnimalId);
+
+            
         }
+       
 
     }
 }
